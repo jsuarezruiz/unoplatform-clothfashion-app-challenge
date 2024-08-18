@@ -1,0 +1,371 @@
+﻿<Page x:Class="ClothFashionApp.Presentation.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ClothFashionApp.Presentation"
+      xmlns:uen="using:Uno.Extensions.Navigation.UI"
+      xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:ut="using:Uno.Themes"
+      xmlns:um="using:Uno.Material"
+      xmlns:not_win="http://uno.ui/not_win" 
+      xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:model="using:ClothFashionApp.Models"
+      NavigationCacheMode="Required"
+      Background="{ThemeResource BackgroundBrush}">
+  <Page.Resources>
+    <ResourceDictionary>
+
+      <FontFamily x:Key="BebasNeueRegularFontFamily">ms-appx:///Assets/Fonts/BebasNeue-Regular.ttf#BebasNeueRegular</FontFamily>
+
+      <Style x:Key="ProfileBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="60" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="40" />
+      </Style>
+
+      <Style x:Key="WelcomeTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10" />
+      </Style>
+
+      <Style x:Key="UsernameTextStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontFamily" Value="{StaticResource BebasNeueRegularFontFamily}" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Margin" Value="4, 0" />
+      </Style>
+
+      <SolidColorBrush x:Key="NotificationBorderBrush">#F4F4F4</SolidColorBrush>
+
+      <Style x:Key="NotificationBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="60" />
+        <Setter Property="Background" Value="{StaticResource NotificationBorderBrush}" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="40" />
+      </Style>
+
+      <SolidColorBrush x:Key="PromoBorderBrush">#1A1F22</SolidColorBrush>
+
+      <Style x:Key="PromoBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="24" />
+        <Setter Property="Background" Value="{StaticResource PromoBorderBrush}" />
+        <Setter Property="Height" Value="200" />
+      </Style>
+
+      <Style x:Key="PromoImageStyle" TargetType="Image">
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0, 0, 0, 50" />
+      </Style>
+
+      <Style x:Key="PromoTitleStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="{StaticResource BebasNeueRegularFontFamily}" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Margin" Value="24, 24, 24, 12" />
+      </Style>
+
+      <Style x:Key="PromoDiscountStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="{StaticResource BebasNeueRegularFontFamily}" />
+        <Setter Property="FontSize" Value="44" />
+        <Setter Property="Margin" Value="24, 0" />
+      </Style>
+
+      <Style x:Key="PromoButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="24, 0, 24, 24" />
+      </Style>
+
+      <Style x:Key="CategoryContainerStyle" TargetType="Grid">
+        <Setter Property="Background" Value="White" />
+      </Style>
+
+      <Style x:Key="CategoryBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+      </Style>
+
+      <Style x:Key="CategoryTextStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="24, 6" />
+      </Style>
+
+      <Style x:Key="CategoryListView" TargetType="ListView">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="ShowsScrollingPlaceholders" Value="False"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+      </Style>
+
+      <Style x:Key="CategoryItemContainerStyle" TargetType="ListViewItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Margin" Value="2"/>
+      </Style>
+
+      <DataTemplate x:Key="CategoryItemTemplate">
+        <Grid
+          Style="{StaticResource CategoryContainerStyle}">
+          <Border
+            x:Name="CategoryItemBorder"
+            Style="{StaticResource CategoryBorderStyle}">
+            <TextBlock 
+              x:Name="CategoryItemText"
+              Text="{Binding}"
+              Style="{StaticResource CategoryTextStyle}"/>
+          </Border>
+        </Grid>
+      </DataTemplate>
+
+      <Style x:Key="SectionStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontFamily" Value="{StaticResource BebasNeueRegularFontFamily}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="6" />
+      </Style>
+
+      <Style x:Key="ViewAllStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="6" />
+      </Style>
+
+      <Style  x:Key="PopularProductGridViewItemStyle" TargetType="GridViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="4"/>
+      </Style>
+
+      <Style x:Key="PopularProductContainerStyle" TargetType="Grid">
+        <Setter Property="Height" Value="320" />
+        <Setter Property="Width" Value="180" />
+      </Style>
+
+      <Style x:Key="PopularProductBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="Margin" Value="0, 0, 0, 12" />
+      </Style>
+
+      <Style x:Key="PopularProductTitleStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontFamily" Value="{StaticResource BebasNeueRegularFontFamily}" />
+        <Setter Property="FontSize" Value="16" />
+      </Style>
+
+      <Style x:Key="BellBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="60" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="12" />
+      </Style>
+
+      <DataTemplate x:Key="PopularProductItemTemplate" x:DataType="model:Product">
+        <Grid
+          RowDefinitions="*, Auto, Auto"
+          not_win:AreDimensionsConstrained="True"
+          Style="{StaticResource PopularProductContainerStyle}">
+          <Border
+            Style="{StaticResource PopularProductBorderStyle}">
+            <Grid>
+              <Image 
+                Stretch="UniformToFill"
+                Source="{Binding Image}"/>
+              <Border
+                Style="{StaticResource BellBorderStyle}">
+                <ToggleButton>
+                  <ToggleButton.Content>
+                    <BitmapIcon
+                      UriSource="ms-appx:///Assets/Images/heart_icon.png"/>
+                  </ToggleButton.Content>
+                  <ut:ControlExtensions.AlternateContent>
+                    <BitmapIcon
+                      ShowAsMonochrome="True"
+                      UriSource="ms-appx:///Assets/Images/heart_fill_icon.png"/>
+                  </ut:ControlExtensions.AlternateContent>
+                </ToggleButton>
+              </Border>
+            </Grid>
+          </Border>
+          <TextBlock 
+            Grid.Row="1"
+            Text="{Binding Title}"
+            Style="{StaticResource PopularProductTitleStyle}"/>
+          <TextBlock 
+            Grid.Row="2"
+            Text="{Binding Price}"
+            Style="{StaticResource PopularProductTitleStyle}"/>
+        </Grid>
+      </DataTemplate>
+
+      <x:Double x:Key="NavigationTabBarItemIconHeight">24</x:Double>
+      <CornerRadius x:Key="NavigationTabBarItemActiveIndicatorCornerRadius">48</CornerRadius>
+      <x:Double x:Key="NavigationTabBarItemActiveIndicatorWidth">72</x:Double>
+      <x:Double x:Key="NavigationTabBarItemActiveIndicatorHeight">60</x:Double>
+      <Thickness x:Key="NavigationTabBarItemPadding">2</Thickness>
+      <SolidColorBrush x:Key="NavigationTabBarTintBrush" Color="Black" Opacity="1" />
+      <SolidColorBrush x:Key="NavigationTabBarItemActiveIndicatorBackgroundSelected" Color="White" />
+
+      <Style x:Key="TabBarStyle" TargetType="utu:TabBar" BasedOn="{StaticResource BottomTabBarStyle}">
+        <Setter Property="CornerRadius" Value="48" />
+        <Setter Property="Margin" Value="24, 0, 24, 24" />
+      </Style>
+
+    </ResourceDictionary>
+  </Page.Resources>
+  <Grid>
+    <ScrollViewer>
+      <Grid
+        utu:SafeArea.Insets="VisibleBounds"
+        RowDefinitions="Auto, Auto, Auto, *"
+        Margin="12, 0">
+        <!-- NAVIGATION BAR -->
+        <Grid
+          ColumnDefinitions="Auto, *, Auto"
+          Margin="0, 12, 0, 0">
+          <Border
+            Style="{StaticResource ProfileBorderStyle}">
+            <Image
+              Stretch="UniformToFill"
+              Source="ms-appx:///Assets/Images/pantspio.jpg"/>
+          </Border>
+          <Grid
+            Grid.Column="1"
+            RowDefinitions="*, *">
+            <TextBlock 
+            Text="Welcome back"
+            Style="{StaticResource WelcomeTextStyle}"/>
+            <TextBlock 
+            Grid.Row="1"
+            Text="TANJIM ISLAM"
+            Style="{StaticResource UsernameTextStyle}"/>
+          </Grid>
+          <Border
+            Grid.Column="2"
+            Style="{StaticResource NotificationBorderStyle}">
+            <Image 
+              Source="ms-appx:///Assets/Images/bell_icon.png"/>
+          </Border>
+        </Grid>
+        <!-- PROMO -->
+        <Grid 
+          Grid.Row="1"
+          DataContext="{Binding Promotion}">
+          <Border
+            Style="{StaticResource PromoBorderStyle}">
+            <Grid
+              RowDefinitions="*, *, Auto">
+              <TextBlock 
+              Text="{Binding Title}"
+              Style="{StaticResource PromoTitleStyle}"/>
+              <TextBlock 
+              Grid.Row="1"
+              Text="{Binding Discount}"
+              Style="{StaticResource PromoDiscountStyle}"/>
+              <Button 
+                Grid.Row="2"
+                Content="{Binding Button}"
+                Style="{StaticResource PromoButtonStyle}"/>
+            </Grid>
+          </Border>
+          <Image 
+            Source="{Binding Image}"
+            Style="{StaticResource PromoImageStyle}"/>
+        </Grid>
+        <!-- CATEGORIES FILTER  -->
+        <ListView
+          Grid.Row="2"
+          ItemsSource="{Binding Categories}"
+          ItemTemplate="{StaticResource CategoryItemTemplate}"
+          ItemContainerStyle="{StaticResource CategoryItemContainerStyle}"
+          SelectionMode="None"
+          Style="{StaticResource CategoryListView}">
+          <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel
+                Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+          </ListView.ItemsPanel>
+        </ListView>
+        <!-- POPULAR PRODUCTS -->
+        <Grid
+          Grid.Row="3"
+          RowDefinitions="Auto, *">
+          <Grid
+            ColumnDefinitions="*, *">
+            <TextBlock 
+              Text="POPULAR PRODUCTS"
+              Style="{StaticResource SectionStyle}"/>
+            <TextBlock 
+              Grid.Column="1"
+              Text="View All"
+              Style="{StaticResource ViewAllStyle}"/>
+          </Grid>
+          <GridView
+            Grid.Row="1"
+            ItemsSource="{Binding PopularProducts}"
+            ItemContainerStyle="{StaticResource PopularProductGridViewItemStyle}"
+            ItemTemplate="{StaticResource PopularProductItemTemplate}"
+            SelectionMode="None"
+            Margin="0, 0, 0, 96">
+            <GridView.ItemsPanel>
+              <ItemsPanelTemplate>
+                <ItemsWrapGrid
+                  Orientation="Horizontal"
+                  win:MaximumRowsOrColumns="4"
+                  not_win:MaximumRowsOrColumns="2" />
+              </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+          </GridView>
+        </Grid>
+      </Grid>
+    </ScrollViewer>
+    <utu:TabBar
+        SelectedIndex="0"
+        Style="{StaticResource TabBarStyle}">
+
+      <utu:TabBarItem>
+        <utu:TabBarItem.Icon>
+          <SymbolIcon Symbol="Home" />
+        </utu:TabBarItem.Icon>
+      </utu:TabBarItem>
+
+      <utu:TabBarItem>
+        <utu:TabBarItem.Icon>
+          <SymbolIcon Symbol="Favorite" />
+        </utu:TabBarItem.Icon>
+      </utu:TabBarItem>
+
+      <utu:TabBarItem>
+        <utu:TabBarItem.Icon>
+          <SymbolIcon Symbol="Shop" />
+        </utu:TabBarItem.Icon>
+      </utu:TabBarItem>
+
+      <utu:TabBarItem>
+        <utu:TabBarItem.Icon>
+          <SymbolIcon Symbol="Contact" />
+        </utu:TabBarItem.Icon>
+      </utu:TabBarItem>
+
+    </utu:TabBar>
+  </Grid>
+</Page>

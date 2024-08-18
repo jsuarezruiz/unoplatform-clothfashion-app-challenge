@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "ClothFashionApp",
+  "display": "standalone",
+  "name": "ClothFashionApp",
+  "short_name": "ClothFashionApp",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
