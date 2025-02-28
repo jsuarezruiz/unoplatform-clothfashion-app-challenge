@@ -10,4 +10,4 @@ ClothFashion App UI Challenge made with .NET MAUI.
 
 Running on Mobile:
 
-<img src="images/clothfashionapp_android.png"  width="300">
+<img src="images/clothfashionapp_android.PNG"  width="300">
